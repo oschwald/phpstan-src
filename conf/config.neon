@@ -30,6 +30,7 @@ parameters:
 		explicitMixedInUnknownGenericNew: false
 		arrayFilter: false
 		arrayUnpacking: false
+		nodeConnectingVisitorCompatibility: true
 	fileExtensions:
 		- php
 	checkAdvancedIsset: false
@@ -215,6 +216,7 @@ parametersSchema:
 		explicitMixedInUnknownGenericNew: bool(),
 		arrayFilter: bool(),
 		arrayUnpacking: bool(),
+		nodeConnectingVisitorCompatibility: bool(),
 	])
 	fileExtensions: listOf(string())
 	checkAdvancedIsset: bool()
@@ -359,7 +361,9 @@ services:
 				preserveOriginalNames: true
 
 	-
-		class: PhpParser\NodeVisitor\NodeConnectingVisitor
+		class: PHPStan\Parser\NodeConnectingVisitor
+		arguments:
+			compatibility: %featureToggles.nodeConnectingVisitorCompatibility%
 
 	-
 		class: PhpParser\PrettyPrinter\Standard
